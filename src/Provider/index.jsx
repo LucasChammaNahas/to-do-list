@@ -5,15 +5,28 @@ const AppContext = createContext();
 
 // Criação do Provider
 const Provider = ({ children }) => {
-  const [todoList, setTodoList] = useState([]);
+  const [isSaving, setIsSaving] = useState(false);
+  const [timeoutBool, setTimeoutBool] = useState(false);
+  const [timeoutId, setTimeoutId] = useState();
+  const [todoList, setTodoList] = useState([
+    { status: 'red', msg: 'Tarefa incompleta' },
+    { status: 'yellow', msg: 'To fazendo, po' },
+    { status: 'green', msg: 'Tarefa feita' },
+  ]);
 
   const statesPkg = {
     todoList,
-    setTodoList
+    setTodoList,
+    isSaving,
+    setIsSaving,
+    timeoutId,
+    setTimeoutId,
+    timeoutBool,
+    setTimeoutBool,
   };
 
   return (
-    <AppContext.Provider value={ statesPkg }>
+    <AppContext.Provider value={statesPkg}>
       {children}
     </AppContext.Provider>
   );
