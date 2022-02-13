@@ -14,7 +14,7 @@ export default function Card({ index }) {
           <Grid container>
             <Grid container justifyContent="space-between">
               <TopBar index={ index } />
-              <CloseButton />
+              <CloseButton index={ index } />
             </Grid>
             <Grid container direction="row" alignItems="center" justifyContent="space-between" mb={2}>
               <Status index={ index } />

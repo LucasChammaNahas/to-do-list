@@ -11,7 +11,7 @@ export default function Card() {
     },
   };
   return (
-    <Grid item>
+    <Grid>
       <Typography>
         Status:
       </Typography>
