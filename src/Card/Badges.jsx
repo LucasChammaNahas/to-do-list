@@ -7,9 +7,9 @@ export default function Badges({ index }) {
   const { todoList, setTodoList } = useGlobalState();
   const color = todoList[index].status;
 
-  let bad = 'gray';
-  let maybe = 'gray';
-  let good = 'gray';
+  let bad = palette['gray'];
+  let maybe = palette['gray'];
+  let good = palette['gray'];
   
   if (color === 'red') bad = palette[color];
   if (color === 'yellow') maybe = palette[color];
