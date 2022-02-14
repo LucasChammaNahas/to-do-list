@@ -11,9 +11,9 @@ export default function Badges({ index }) {
   let maybe = palette['gray'];
   let good = palette['gray'];
   
-  if (color === 'red') bad = palette[color];
-  if (color === 'yellow') maybe = palette[color];
-  if (color === 'green') good = palette[color];
+  if (color === 'A') bad = palette[color];
+  if (color === 'B') maybe = palette[color];
+  if (color === 'C') good = palette[color];
 
   const changeStatus = (status) => {
     let updatedStatus = [...todoList];
@@ -23,13 +23,13 @@ export default function Badges({ index }) {
   
   return (
     <Grid>
-      <IconButton onClick={() => changeStatus('red') }>
+      <IconButton onClick={() => changeStatus('A') }>
         <GppBad style={{fill: bad}}  />
       </IconButton>
-      <IconButton onClick={() => changeStatus('yellow') }>
+      <IconButton onClick={() => changeStatus('B') }>
         <GppMaybe style={{fill: maybe}}  />
       </IconButton>
-      <IconButton onClick={() => changeStatus('green') }>
+      <IconButton onClick={() => changeStatus('C') }>
         <GppGood style={{fill: good}} />
       </IconButton>
     </Grid>
