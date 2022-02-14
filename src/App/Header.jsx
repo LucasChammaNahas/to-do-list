@@ -1,12 +1,10 @@
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
+import { Box, Typography, IconButton, Grid, Toolbar } from '@mui/material';
 import CloudDoneIcon from '@mui/icons-material/CloudDone';
 import SyncIcon from '@mui/icons-material/Sync';
 import { createStyles, makeStyles } from "@mui/styles";
 import { useGlobalState } from '../Provider';
+import Filters from './Filters';
 
 export const useStyles = makeStyles(() =>
   createStyles({
@@ -22,20 +20,29 @@ export default function Header() {
   const classes = useStyles();
   const { isSaving } = useGlobalState();
 
-  const syncIcon = isSaving 
-    ? <SyncIcon className={classes.SyncIcon} style={{ fill: '#fff' }} /> 
+  const syncIcon = isSaving
+    ? <SyncIcon className={classes.SyncIcon} style={{ fill: '#fff' }} />
     : <CloudDoneIcon style={{ fill: '#fff' }} />;
+
+  const syncText = isSaving
+    ? 'Syncing progress...'
+    : 'All changes saved'
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Typography>All changes saved</Typography>
-          <IconButton>
-            { syncIcon }
-          </IconButton>
+          <Grid container justifyContent="space-around">
+            <Grid item sx={ 7 }>
+              <Filters />
+            </Grid>
+            <Grid item container xs={ 5 } alignItems="center" justifyContent="flex-end">
+              <Typography>{syncText}</Typography>
+              <IconButton>{syncIcon}</IconButton>
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
-    </Box>
+    </Box >
   );
 }
