@@ -1,19 +1,18 @@
 import { Typography, Grid } from '@mui/material';
+import { useGlobalState } from '../Provider';
 
-export default function Card() {
-  const styles = {
-    sx: {
-      width: '80%',
-      height: '8px',
-      borderRadius: '4px 1px 1px 1px',
-      marginTop: '-16px',
-      marginLeft: '-24px',
-    },
-  };
+export default function Card({ index }) {
+  const { todoList } = useGlobalState();
+
+  let status;
+  if (todoList[index].status === 'A') status = 'Pending';
+  if (todoList[index].status === 'B') status = 'In Progress';
+  if (todoList[index].status === 'C') status = 'Finished';
+  
   return (
     <Grid>
       <Typography>
-        Status:
+        <strong>Status:</strong> <i>{status}</i>
       </Typography>
     </Grid>
   );
