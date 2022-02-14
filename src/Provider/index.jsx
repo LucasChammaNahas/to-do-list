@@ -8,11 +8,12 @@ const Provider = ({ children }) => {
   const [isSaving, setIsSaving] = useState(false);
   const [timeoutBool, setTimeoutBool] = useState(false);
   const [timeoutId, setTimeoutId] = useState();
-  const [todoList, setTodoList] = useState([
-    { status: 'red', msg: 'Tarefa incompleta' },
-    { status: 'yellow', msg: 'To fazendo, po' },
-    { status: 'green', msg: 'Tarefa feita' },
-  ]);
+  const [filter, setFilter] = useState({
+    timestamp: true,
+    status: false,
+    alphabet: false,
+  });
+  const [todoList, setTodoList] = useState([]);
 
   const statesPkg = {
     todoList,
@@ -23,6 +24,8 @@ const Provider = ({ children }) => {
     setTimeoutId,
     timeoutBool,
     setTimeoutBool,
+    filter,
+    setFilter,
   };
 
   return (
