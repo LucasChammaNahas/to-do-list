@@ -1,27 +1,42 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Box, Grid } from '@mui/material';
 import Card from '../Card'
 import AddTodoBtn from './AddTodoBtn';
 import { useGlobalState } from '../Provider';
+import api from '../Services/api';
 
 export default function TodoList() {
-  const { todoList } = useGlobalState();
+  const [isLoading, setIsLoading] = useState(true);
+  const { todoList, setTodoList } = useGlobalState();
   const { setIsSaving } = useGlobalState();
   const { setTimeoutId } = useGlobalState();
   const { timeoutBool, setTimeoutBool } = useGlobalState();
-  const { filter, setFilter } = useGlobalState();
-
-  console.log('📺🐛 todolist', todoList);
-
+  const { filter } = useGlobalState();
+  
+  // Loads sellers list
+  useEffect(() => {
+    const loadTodoList = async () => {
+      const res = await api.get('get');
+      const list = res.data;
+      const updatedList = list.map(({msg, status, timestamp}) => ({msg, status, timestamp}));;
+      setTodoList(updatedList);
+      setIsLoading(false);
+    };
+    loadTodoList();
+  }, []); // eslint-disable-line
+  
   useEffect(() => {
     if (timeoutBool) {
-      const id = setTimeout(() => {
+      const id = setTimeout(async () => {
+        await api.post('post', todoList);
         setIsSaving(false);
-      }, 3000);
+      }, 10000);
       setTimeoutId(id);
       setTimeoutBool(false);
     }
-  }, [setIsSaving, setTimeoutId, setTimeoutBool, timeoutBool]);
+  }, [setIsSaving, setTimeoutId, setTimeoutBool, timeoutBool, todoList]);
+  
+  if (isLoading) return <h1>Loading...</h1>
 
   const sortCards = () => {
     let sorted;
